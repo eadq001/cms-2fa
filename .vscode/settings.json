@@ -1,0 +1,13 @@
+{
+    "codium.codeCompletion.enable": false,
+    "folder-color.pathColors": [
+        {
+            "folderPath": "CMS-2fa\\views\\",
+            "color": "foldercolorizer.color_cc6633"
+        },
+        {
+            "folderPath": "CMS-2fa\\controllers\\",
+            "color": "foldercolorizer.color_00cc33"
+        }
+    ]
+}
