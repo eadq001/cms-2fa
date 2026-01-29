@@ -7,7 +7,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
 class Mailer
-{
+{   
+    protected $token; 
     public function sendOtp($email, $name)
     {
         // Create an instance; passing `true` enables exceptions
@@ -37,6 +38,8 @@ class Mailer
             $mail->Body = "This is your code <b> {$code} </b>";
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
+
+            $this->token = md5((string)rand());
             $mail->send();
 
             echo 'Message has been sent';
