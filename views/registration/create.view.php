@@ -23,7 +23,7 @@
                 <div>
                     <label for="email" class="block text-sm font-medium leading-5  text-gray-700">Name</label>
                     <div class="mt-1 relative rounded-md shadow-sm">
-                        <input id="name" name="name" placeholder="John Doe" type="text" required=""
+                        <input id="name" name="name" placeholder="example@email.com" type="text" required="" value="<?= oldUserIput('old', 'name') ?>"
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
@@ -42,7 +42,7 @@
                     </label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <input id="email" name="email" placeholder="user@example.com" type="email"
-                            required=""
+                            required="" value="<?= oldUserIput('old', 'email') ?>"
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +59,7 @@
                         Password
                     </label>
                     <div class="mt-1 rounded-md shadow-sm">
-                        <input id="password" name="password" type="password" required=""
+                        <input id="password" name="password" type="password" required="" value="<?= oldUserIput('old', 'password') ?>"
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
                 </div>
@@ -69,14 +69,12 @@
                         Confirm Password
                     </label>
                     <div class="mt-1 rounded-md shadow-sm">
-                        <input id="password_confirmation" name="password_confirmation" type="password" required=""
+                        <input id="password_confirmation" name="password_confirmation" type="password" required="" value="<?= oldUserIput('old', 'passwordConfirm') ?>"
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
                 </div>
                 <div class="mt-1 text-red-600 text-[13px] tracking-wider">
-               <?php if (isset($errors['password'])): ?>
-<?= $errors['password'] ?>
-<?php endif ?>
+                    <?= oldUserIput('errors', 'password') ?>
                 </div>
 
                 <div class="mt-6">

@@ -5,7 +5,9 @@
 
     "autoload": {
     "psr-4": {
-      "Core\\": "Core/"
+      "Core\\": "Core/",
+      "Mailer\\": "Mailer/"
+
     }
   }
 }

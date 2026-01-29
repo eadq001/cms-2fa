@@ -16,11 +16,12 @@ require BASE_PATH . 'routes.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $method = $_SERVER['REQUEST_METHOD'];
-dd($_ENV);
 $router->route($uri, $method);
 
+// dd($_SESSION);
 
-// require("views/partials/header.php");
-// require("views/partials/footer.php");
+\Core\Session::unflash();
+
+
 
 ?>

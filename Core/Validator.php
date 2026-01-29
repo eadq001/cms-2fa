@@ -8,7 +8,7 @@ class Validator
     {
         $string = trim($value);
 
-        return strlen($string) < $min && strlen($string) > $max;
+        return strlen($string) >= $min && strlen($string) <= $max;
     }
 
     public static function email($value)
@@ -22,7 +22,6 @@ class Validator
 
         if ($password === $passwordConfirm) {
             return preg_match($pattern, $password) && preg_match($pattern, $passwordConfirm);
-
         }
 
         else {
