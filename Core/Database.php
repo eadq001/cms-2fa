@@ -15,7 +15,7 @@ class Database
         $this->connection = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     }
 
-    public function query($query, $params)
+    public function query(string $query, array $params = [])
     {
         $this->statement = $this->connection->prepare($query);
         $this->statement->execute($params);
