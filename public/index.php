@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 session_start();
+date_default_timezone_set('Asia/Manila');
 
 use Core\Router;
 const BASE_PATH = __DIR__ . '/../';
@@ -19,7 +20,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 $router->route($uri, $method);
 
 // dd($_SESSION);
-
 \Core\Session::unflash();
 
 

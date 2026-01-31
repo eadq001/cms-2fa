@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\SMTP;
 class Mailer
 {
 
-    public function sendOtp($email, $name, $code)
+    public function sendOtp($email, $username, $code)
     {
         // Create an instance; passing `true` enables exceptions
 
@@ -28,7 +28,7 @@ class Mailer
 
             // Recipients
             $mail->setFrom($_ENV['SMTP_EMAIL'], 'CMS-2FA');
-            $mail->addAddress($email, $name);  // Add a recipient
+            $mail->addAddress($email, $username);  // Add a recipient
 
             // Content
             $mail->isHTML(true);  // Set email format to HTML

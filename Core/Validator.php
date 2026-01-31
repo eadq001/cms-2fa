@@ -11,6 +11,12 @@ class Validator
         return strlen($string) >= $min && strlen($string) <= $max;
     }
 
+    public static function username($username) {
+        $pattern = "/^[a-zA-Z\d_]{4,50}$/";
+
+        return preg_match($pattern, $username);
+    }
+
     public static function email($value)
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);

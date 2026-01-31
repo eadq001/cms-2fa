@@ -10,33 +10,6 @@
     <title>Verify OTP</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* Custom fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        /* Hide spin buttons for number inputs (optional, for single digit OTP inputs) */
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-    </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm animate-fade-in">
@@ -44,7 +17,7 @@
         <p class="text-center text-gray-600 mb-6 text-sm">
             A 6-digit verification code has been sent to your email (or phone number).
         </p>
-        <form id="otpForm" action="/verify_email" method="POST">
+        <form id="otpForm" action="/verify_email?token=<?= $_GET['token'] ?>" method="POST">
             <div class="flex justify-center space-x-2 mb-6">
                 <!-- OTP Input Fields -->
                 <input type="text" id="otp-1" name="otp-1" maxlength="1"
@@ -113,16 +86,6 @@
                 });
             });
 
-            otpForm.addEventListener('submit', (e) => {
-                e.preventDefault(); // Prevent actual form submission for this demo
-                let otpCode = '';
-                otpInputs.forEach(input => {
-                    otpCode += input.value;
-                });
-                alert('OTP Submitted: ' + otpCode);
-                console.log('OTP Submitted:', otpCode);
-                // In a real application, you would send otpCode to your server for verification
-            });
         });
     </script>
 </body>
