@@ -12,7 +12,9 @@ use Mailer\Mailer;
 
 $db = new Database;
 $mail = new Mailer();
+$validator = new Validator();
 
+//get the user's input, generate token and otp.
 $email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -20,27 +22,11 @@ $passwordConfirm = $_POST['password_confirmation'];
 $token = md5((string) rand());
 $code = sprintf('%06d', random_int(0, 999999));
 
-$errors = [];
-
-// form validation
-if (!Validator::username($username)) {
-    $errors['username'] = 'name must consists of 4 characters and above. uppercase and lowercase letters, digits, and underscore are only allowed';
-}
-
-if (!Validator::email($email)) {
-    $errors['email'] = 'please enter a valid email address';
-}
-
-if (!Validator::passwordValidate($password, $passwordConfirm)) {
-    $errors['password'] = 'password must have an uppercase, lowercase and a number with 8 characters minimum.';
-}
-
-if ($password !== $passwordConfirm) {
-    $errors['password'] = 'password do not match';
-}
+// checks all the forms if it is valid
+$validator->validateAll($username, $email, $password, $passwordConfirm);
 
 // redirect back to the page if the form data do not passed the checks
-if (!empty($errors)) {
+if (!empty($validator->errors())) {
     Session::flash('old', [
         'email' => $_POST['email'],
         'username' => $_POST['username'],
@@ -49,7 +35,7 @@ if (!empty($errors)) {
     ]);
 
     Session::flash('errors',
-        $errors);
+        $validator->errors());
 
     redirect('/register');
 }
@@ -57,7 +43,8 @@ if (!empty($errors)) {
 // checks if the email exist
 $user = $db->query('SELECT email FROM users WHERE email = :email LIMIT 1', ['email' => $email])->get();
 if ($user) {
-    $errors['user'] = 'user already exist';
+    $errors = ['user' => 'user already exist'];
+
     Session::flash('old', [
         'email' => $_POST['email'],
         'username' => $_POST['username'],
@@ -77,9 +64,7 @@ if ($emailVerification) {
     if (date('Y-m-d H:i:s') >= $emailVerification['time_expires']) {
         // delete the row
         $db->query('DELETE FROM email_verifications WHERE email = :email', ['email' => $emailVerification['email']]);
-    }
-
-    else {
+    } else {
         redirect("/verify_email?token={$emailVerification['token']}");
     }
 }
@@ -93,10 +78,10 @@ $db->query('INSERT INTO email_verifications (username, password, email, token, o
         'otp' => $code,
         'created_at' => date('Y-m-d H:i:s'),
         'time_expires' => date('Y-m-d H:i:s', +time() + 900)]);
-        
 
 // send the Code
 $mail->sendOtp($email, $username, $code);
+
 // redirect the user with unique token if successfully completed steps above
 redirect("/verify_email?token={$token}");
 ?>
