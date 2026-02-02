@@ -10,7 +10,7 @@
         </h2>
         <p class="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
             Or
-            <a href="#"
+            <a href="/login"
                 class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                 login to your account
             </a>

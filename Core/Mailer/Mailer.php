@@ -1,15 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Mailer;
+namespace Core\Mailer;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+use const Mailer\gmail;
+use const Mailer\passing;
+
 class Mailer
 {
 
-    public function sendOtp($email, $username, $code)
+    public function send($email, $username, $code = null, $token = null)
     {
         // Create an instance; passing `true` enables exceptions
 
@@ -31,9 +34,14 @@ class Mailer
             $mail->addAddress($email, $username);  // Add a recipient
 
             // Content
-            $mail->isHTML(true);  // Set email format to HTML
-            $mail->Subject = 'OTP Code';
-            $mail->Body = "This is your code <b> {$code} </b>";
+            if (!empty($code)) {
+                $mail->Subject = 'OTP Code';
+                $mail->Body = "This is your code <b> {$code} </b>";
+            }
+            else {
+                $mail->Subject = 'Password reset';
+                $mail->Body = "This is your password reset link <a href='/password_reset?token={$token}'>Reset Your Password</a>";
+            }
 
             $mail->send();
 

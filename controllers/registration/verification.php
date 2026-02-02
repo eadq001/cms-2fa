@@ -40,11 +40,10 @@ if ($otp === $user['otp']) {
     $db->query('DELETE FROM email_verifications WHERE id = :id', ['id' => $user['id']]);
 
     // alert the user being verified and redirect to login page
-    echo "<script>alert('you are now verified. redirecting to login page')</script>";
-    sleep(2);
     redirect('/login');
-} else {
-    dd('wrong otp');
+    } else {
+    redirect("/verify_email?token={$token}");
+    // dd('wrong otp');
 }
 
 ?>

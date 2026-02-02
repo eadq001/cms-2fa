@@ -8,7 +8,7 @@
 use Core\Database;
 use Core\Session;
 use Core\Validator;
-use Mailer\Mailer;
+use Core\Mailer\Mailer;
 
 $db = new Database;
 $mail = new Mailer();
