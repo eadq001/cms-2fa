@@ -6,11 +6,14 @@ $token = $_GET['token'];
 $checkToken = new Token();
 
 $user = $checkToken->checkTokenExpiry($token);
+
 view('reset/passwordResetNotify.view.php',
     [
         'email' => $user['email']
     ]);
 
-dd($_SESSION);
+// sleep(10);
+
+// redirect('/login');
 
 ?>

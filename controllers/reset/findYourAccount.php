@@ -5,7 +5,9 @@ use Core\Mailer\Mailer;
 use Core\Database;
 use Core\Session;
 use Core\Validator;
+use Core\Token\Token;
 
+$tokenObj = new Token();
 $db = new Database();
 $mailer = new Mailer();
 $email = trim($_POST['email']);
@@ -16,10 +18,19 @@ $validator = new Validator();
 //validate the email
 $validator->validateAll(email:$email);
 
+$user = $db->query('SELECT * FROM password_reset where email = :email LIMIT 1', ['email' => $email])->get();
+
+$checkToken = $tokenObj->checkTokenExpiry($user['token']);
+
+if($checkToken) {
+    Session::flash('errors', ['user' => 'User has a pending password reset link, it has 15 mins validaty.']);
+    redirect('find_your_account');
+}
+
 
 if (! empty($validator->errors())) {
     Session::flash('errors', $validator->errors());
-    redirect('/reset');
+    redirect('find_your_account');
 }
 
 
@@ -30,7 +41,7 @@ if (!$user || !$user['email_verified']) {
     Session::flash('errors', [
         'user' => 'User does not exist'
     ]);
-    redirect('/reset');
+    redirect('find_your_account');
 }
 
 // insert to password_reset table if user is found.

@@ -85,7 +85,7 @@
                         </div>
                         <div class="mt-3 flex  justify-center">
 
-                            <a href="/reset"
+                            <a href="/find_your_account"
                                 class="font-small text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                                 Reset Your Password
                             </a>

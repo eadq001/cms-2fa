@@ -22,7 +22,7 @@
             <div class="mt-0 mb-2 text-red-600 text-[16px] tracking-wider">
                 <?= oldUserIput('errors', 'email') ?>
             </div>
-            <form method="POST" action="/reset">
+            <form method="POST" action="/find_your_account">
                 <div class="text-red-500 -mt-[10px] ">
 
                     <?= \Core\Session::get('errors') ['user'] ?? null ?>
