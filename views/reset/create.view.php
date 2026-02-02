@@ -20,7 +20,7 @@
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <div class="mt-0 mb-2 text-red-600 text-[16px] tracking-wider">
-                <?= oldUserIput('errors', 'user') ?>
+                <?= oldUserIput('errors', 'email') ?>
             </div>
             <form method="POST" action="/reset">
 

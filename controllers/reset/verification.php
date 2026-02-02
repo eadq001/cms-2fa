@@ -14,11 +14,14 @@ $token = md5((string) rand());
 $validator = new Validator();
 
 //validate the email
-$validate = $validator->validateAll(email: $email);
-if (!empty($validate)) {
-    Session::flash('old', $validator->errors());
+$validator->validateAll(email:$email);
+
+
+if (! empty($validator->errors())) {
+    Session::flash('errors', $validator->errors());
     redirect('/reset');
 }
+
 
 $user = Email::isEmailExist($email);
 
