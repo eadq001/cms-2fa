@@ -80,7 +80,7 @@ $db->query('INSERT INTO email_verifications (username, password, email, token, o
         'time_expires' => date('Y-m-d H:i:s', +time() + 900)]);
 
 // send the Code
-$mail->sendOtp($email, $username, $code);
+$mail->send($email, $username, $code);
 
 // redirect the user with unique token if successfully completed steps above
 redirect("/verify_email?token={$token}");

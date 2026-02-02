@@ -4,10 +4,15 @@ use Core\Token\Token;
 
 $token = new Token;
 
-if (!$token->checkTokenExpiry($_GET['token'])) {
+$user = $token->checkTokenExpiry($_GET['token']);
+
+if (!$user) {
     redirect('/register');
 } else {
-    view('registration/verifyEmailPage.view.php');
+    view('registration/verifyEmailPage.view.php',
+        [
+            'email' => $user['email']
+        ]);
 }
 
 ?>

@@ -13,6 +13,9 @@ $router->post('/login', 'controllers/login/store.php');
 $router->get('/reset', 'controllers/reset/create.php');
 $router->post('/reset', 'controllers/reset/verification.php');
 
+$router->get('/password_reset', 'controllers/reset/passwordResetNotify.php');
+$router->post('/password_reset', 'controllers/reset/passwordResetNotify.php');
+
 $router->get('/verify_email', 'controllers/registration/verifyEmailPage.php');
 $router->post('/verify_email', 'controllers/registration/verification.php');
 // $router->get('/login', 'controllers/index.php');

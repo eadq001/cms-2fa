@@ -1,18 +1,38 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
+
 use Core\Email\Email;
 use Core\Mailer\Mailer;
+use Core\Database;
+use Core\Session;
+use Core\Validator;
 
+$db = new Database();
 $mailer = new Mailer();
-$email = $_POST['email'];
+$email = trim($_POST['email']);
+$token = md5((string) rand());
+
+$validator = new Validator();
+
+//validate the email
+$validate = $validator->validateAll(email: $email);
+if (!empty($validate)) {
+    Session::flash('old', $validator->errors());
+    redirect('/reset');
+}
 
 $user = Email::isEmailExist($email);
 
-$mailer->send
-
-if ($user) {
-    redirect('/password_reset');
+//redirect to login if no user is found
+if (!$user || !$user['email_verified']) {
+    redirect('/login');
 }
 
+// insert to password_reset table if user is found.
+$db->query('INSERT INTO password_reset (email, token, time_expires) VALUES (:email, :token, :time_expires)', ['email' => $user['email'], 'token' => $token, 'time_expires' => date('Y-m-d H:i:s', time() + 900)]);
 
+$mailer->send($user['email'], $user['username'], token: $token);
+
+//create a session for password reset
+
+redirect("/password_reset?token={$token}");
 ?>

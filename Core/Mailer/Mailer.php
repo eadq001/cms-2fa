@@ -33,6 +33,7 @@ class Mailer
             $mail->setFrom($_ENV['SMTP_EMAIL'], 'CMS-2FA');
             $mail->addAddress($email, $username);  // Add a recipient
 
+            $mail->isHTML(true);                                  //Set email format to HTML
             // Content
             if (!empty($code)) {
                 $mail->Subject = 'OTP Code';
@@ -40,7 +41,7 @@ class Mailer
             }
             else {
                 $mail->Subject = 'Password reset';
-                $mail->Body = "This is your password reset link <a href='/password_reset?token={$token}'>Reset Your Password</a>";
+                $mail->Body = "This is your password reset link <a href='http://localhost:4000/password_reset?token={$token}'>Reset Your Password</a>";
             }
 
             $mail->send();

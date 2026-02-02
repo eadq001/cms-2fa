@@ -15,7 +15,7 @@
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm animate-fade-in">
         <h2 class="text-2xl font-bold text-center mb-4 text-gray-800">Verify OTP</h2>
         <p class="text-center text-gray-600 mb-6 text-sm">
-            A 6-digit verification code has been sent to your email (or phone number).
+            A 6-digit verification code has been sent to <b><?= $email ?></b>.
         </p>
         <form id="otpForm" action="/verify_email?token=<?= $_GET['token'] ?>" method="POST">
             <div class="flex justify-center space-x-2 mb-6">
