@@ -11,4 +11,6 @@ view('reset/passwordResetNotify.view.php',
         'email' => $user['email']
     ]);
 
+dd($_SESSION);
+
 ?>

@@ -1,12 +1,12 @@
 <?php view('partials/head.php', [
-'pageTitle' => 'Reset your password'
+'pageTitle' => 'Find Your Account'
 ]); ?>
 
 <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <img class="mx-auto h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow">
         <h2 class="mt-3 text-center text-3xl leading-9 font-extrabold text-gray-900">
-            Reset Your Password
+            Find Your Account
         </h2>
         <p class="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
             Or
@@ -23,9 +23,11 @@
                 <?= oldUserIput('errors', 'email') ?>
             </div>
             <form method="POST" action="/reset">
+                <div class="text-red-500 -mt-[10px] ">
 
-
-                <div class="mt-0">
+                    <?= \Core\Session::get('errors') ['user'] ?? null ?>
+                </div>
+                <div class="mt-3">
                     <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
                         Email address
                     </label>
