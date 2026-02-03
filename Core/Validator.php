@@ -55,7 +55,7 @@ class Validator
             }
         }
 
-        if (!empty($password) || !empty($passwordConfirm)) {
+        if (!empty($password) && !empty($passwordConfirm)) {
             if (!static::passwordValidate($password, $passwordConfirm)) {
                 if ($password !== $passwordConfirm) {
                     $this->errors['password'] = 'password do not match';
@@ -63,6 +63,10 @@ class Validator
                     $this->errors['password'] = 'password must have an uppercase, lowercase and a number with 8 characters minimum.';
                 }
             }
+        }
+        // execute if password and password confirm is empty. only checks the password field
+        if (!static::passwordValidate($password, $passwordConfirm = null)) {
+            $this->errors['password'] = 'password must have an uppercase, lowercase and a number with 8 characters minimum.';
         }
     }
 

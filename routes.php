@@ -21,6 +21,7 @@ $router->post('/password_reset_page', 'controllers/reset/store.php');
 
 $router->get('/verify_email', 'controllers/registration/verifyEmailPage.php');
 $router->post('/verify_email', 'controllers/registration/verification.php');
-// $router->get('/login', 'controllers/index.php');
+
+$router->get('/home', 'controllers/home.php');
 
 ?>
