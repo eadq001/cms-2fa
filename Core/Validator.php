@@ -74,6 +74,10 @@ class Validator
     {
         return $this->errors;
     }
+
+    public function setErrors($key, $value) {
+        $this->errors[$key] = $value;
+    }
 }
 
 ?>

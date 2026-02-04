@@ -16,7 +16,12 @@ $token = md5((string) rand());
 $validator = new Validator();
 
 //validate the email
-$validator->validateAll(email:$email);
+if (!Validator::email($email)) {
+    $validator->setErrors('email', 'please enter a valid email address');
+}
+
+//deletes the user otp verification if he tried to password reset at the same time
+$db->query('DELETE FROM otp_verifications WHERE email = :email', ['email' => $email]);
 
 $user = $db->query('SELECT * FROM password_reset where email = :email LIMIT 1', ['email' => $email])->get();
 

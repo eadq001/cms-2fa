@@ -11,7 +11,7 @@ class Authenticator
     public function attemptLogin($email, $password)
     {
         self::$db = new Database();
-        $user = self::$db->query('SELECT username, password FROM users WHERE email = :email', ['email' => $email])->get();
+        $user = self::$db->query('SELECT id, username, password FROM users WHERE email = :email', ['email' => $email])->get();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {

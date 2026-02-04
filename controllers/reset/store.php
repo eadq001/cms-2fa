@@ -35,7 +35,7 @@ $db->query('UPDATE users SET password = :password WHERE email = :email', ['email
 $db->query('DELETE FROM password_reset WHERE email = :email', ['email' => $user['email']]);
 
 // clear the session
-Session::flush();
+Session::destroy();
 
 echo "<script>
     alert('Password has been updated');

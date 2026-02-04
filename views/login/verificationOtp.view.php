@@ -1,5 +1,5 @@
 <?php view('partials/head.php', [
-    'pageTitle' => 'Email Verification'
+    'pageTitle' => 'OTP Verification'
 ]); ?>
 
 <!DOCTYPE html>
@@ -13,12 +13,16 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm animate-fade-in">
+        <div class="text-red-500 flex justify-center">
+                <?= \Core\Session::get('errors')['attempts'] ?? null?>
+        </div>
         <h2 class="text-2xl font-bold text-center mb-4 text-gray-800">Verify OTP</h2>
         <p class="text-center text-gray-600 mb-6 text-sm">
             A 6-digit verification code has been sent to <b><?= $email ?></b>.
         </p>
-        <form id="otpForm" action="/verify_email" method="POST">
+        <form id="otpForm" action="/otp_verification" method="POST">
             <div class="flex justify-center space-x-2 mb-6">
+                <input type="hidden" name="token" value="<?=$token?>">
                 <!-- OTP Input Fields -->
                 <input type="text" id="otp-1" name="otp-1" maxlength="1"
                        class="otp-input w-12 h-12 text-center text-2xl font-bold border border-gray-300 rounded focus:outline-none focus:border-blue-500"
