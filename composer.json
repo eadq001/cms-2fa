@@ -1,0 +1,17 @@
+{
+    "name": "vendor/cms-2fa",
+    "description": "CMS with two-factor authentication",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "php": "^7.4 || ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
