@@ -42,8 +42,7 @@ if ($otp === $user['otp']) {
     // alert the user being verified and redirect to login page
     redirect('/login');
     } else {
-    redirect("/verify_email?token={$token}");
-    // dd('wrong otp');
+    redirect("/register/email/verification?token={$token}");
 }
 
 ?>

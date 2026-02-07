@@ -17,7 +17,7 @@
         <p class="text-center text-gray-600 mb-6 text-sm">
             A 6-digit verification code has been sent to <b><?= $email ?></b>.
         </p>
-        <form id="otpForm" action="/verify_email" method="POST">
+        <form id="otpForm" action="/register/email/verification" method="POST">
             <div class="flex justify-center space-x-2 mb-6">
                 <!-- OTP Input Fields -->
                 <input type="text" id="otp-1" name="otp-1" maxlength="1"

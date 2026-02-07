@@ -7,7 +7,7 @@ $checkToken = new Token();
 
 $user = $checkToken->checkTokenExpiry($token);
 
-view('reset/passwordResetNotify.view.php',
+view('reset/passwordResetNotification.view.php',
     [
         'email' => $user['email']
     ]);

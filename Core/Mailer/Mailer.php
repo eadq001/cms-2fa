@@ -41,7 +41,7 @@ class Mailer
             }
             else {
                 $mail->Subject = 'Password reset';
-                $mail->Body = "This is your password reset link <a href='http://localhost:4000/password_reset_page?token={$token}'>Reset Your Password</a>";
+                $mail->Body = "This is your password reset link <a href='http://localhost:4000/reset/password/user/form?token={$token}'>Reset Your Password</a>";
             }
 
             $mail->send();

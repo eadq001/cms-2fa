@@ -15,7 +15,7 @@
            <div class="mt-0 mb-2 text-red-600 text-[16px] tracking-wider">
                     <?= \Core\Session::get('errors')['password'] ?? null?>
                 </div>
-            <form method="POST" action="/password_reset_page">
+            <form method="POST" action="/reset/password/user/update">
                 <input type="hidden" name="token" value="<?= $_GET['token'] ?>">
                 <div class="mt-6">
                     <label for="password" class="block text-sm font-medium leading-5 text-gray-700">

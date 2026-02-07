@@ -15,19 +15,29 @@ class Authenticator
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
-                $this->login(['email' => $email]);   
+                $this->login(['email' => $email]);
             }
         }
         return $user;
     }
 
     public function login($user)
-    {   $_SESSION['logged_in'] = true;
-        $_SESSION['user'] = ['email' => $user['email']];
+    {
         session_regenerate_id(true);
+
+        $_SESSION['logged_in'] = true;
+        $_SESSION['user'] = ['email' => $user['email']];
+        dd('i wass called');
     }
 
-    public function logout() {
+    public static function passwordReset($email)
+    {
+        Session::put('user', $email);
+        Session::put('passwordReset', true);
+    }
+
+    public function logout()
+    {
         \Core\Session::destroy();
     }
 }

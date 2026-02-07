@@ -18,7 +18,7 @@ $user = $checkToken->checkTokenExpiry($token);
 
 // redirect if there is no user found
 if (!$user) {
-    redirect('/register');
+    redirect('/login');
 }
 
 $validator->validateAll(password: $password, passwordConfirm: $passwordConfirm);
@@ -26,7 +26,7 @@ $validator->validateAll(password: $password, passwordConfirm: $passwordConfirm);
 // redirect to the current page if there are password validation error
 if (!empty($validator->errors())) {
     Session::flash('errors', $validator->errors());
-    redirect("/password_reset_page?token={$token}");
+    redirect("/reset/password/user/form?token={$token}");
 }
 
 // update the password

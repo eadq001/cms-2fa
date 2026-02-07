@@ -20,7 +20,7 @@
         <p class="text-center text-gray-600 mb-6 text-sm">
             A 6-digit verification code has been sent to <b><?= $email ?></b>.
         </p>
-        <form id="otpForm" action="/otp_verification" method="POST">
+        <form id="otpForm" action="/login/otp/verification" method="POST">
             <div class="flex justify-center space-x-2 mb-6">
                 <input type="hidden" name="token" value="<?=$token?>">
                 <!-- OTP Input Fields -->
@@ -58,11 +58,6 @@
                 </a>
             </div>
         </form>
-        <div class="text-center mt-6">
-            <a href="login.html" class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800">
-                Back to Login
-            </a>
-        </div>
     </div>
 
     <script>

@@ -11,6 +11,8 @@ $user = $db->query('SELECT email, time_expires, attempts FROM otp_verifications 
 // dd($token);
 
 if (!$user) {
+    \Core\Session::destroy();
+
     echo "
     <script>
     alert('otp is expired. please try again');

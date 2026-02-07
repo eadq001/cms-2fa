@@ -37,7 +37,7 @@ if ($otp !== $user['otp']) {
 
     Session::flash('errors', ['attempts' => "You have {$userAttempts['attempts']} attempts left"]);
 
-    redirect("/otp_verification?token={$token}");
+    redirect("/login/otp/verification?token={$token}");
 }
 
 if ($userAttempts === 0) {

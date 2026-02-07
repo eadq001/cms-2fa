@@ -16,9 +16,9 @@ $password = $_POST['password'];
 $token = md5((string) rand());
 $otp = sprintf('%06d', random_int(0, 999999));
 
-Session::flush();
 // checks if the user exist. if it exist, checks the password if it match to the users password
 $user = $authenticator->attemptLogin($email, $password);
+
 if (!$user) {
     Session::flash('errors', ['user' => 'User does not exist']);
     redirect('/login');
@@ -32,15 +32,16 @@ if (!empty($validator->errors())) {
 }
 
 $userOtp = $db->query('SELECT time_expires, email, token FROM otp_verifications where email = :email', ['email' => $email])->get();
-//checks if the otp is expired.
 
+//checks if the otp is expired.
 if ($userOtp['time_expires'] <= date('Y-m-d H:i:s')) {
+    Session::destroy();
     $db->query('DELETE FROM otp_verifications WHERE email = :email', ['email' => $userOtp['email']]);
 }
 else {
     echo "
     <script>alert('You have a pending OTP.');
-    window.location.href = '/otp_verification?token={$userOtp['token']}';
+    window.location.href = '/login/otp/verification?token={$userOtp['token']}';
     </script>
     ";
 }
@@ -62,6 +63,6 @@ $db->query('DELETE FROM password_reset WHERE email = :email', ['email' => $email
 
 $mailer->send($email, null, $otp);
 
-redirect("/otp_verification?token={$token}");
+redirect("/login/otp/verification?token={$token}");
 
 ?>

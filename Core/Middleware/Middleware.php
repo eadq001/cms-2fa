@@ -6,7 +6,8 @@ class Middleware
 {
     const MAP = [
         'guest' => Guest::class,
-        'auth' => Auth::class
+        'auth' => Auth::class,
+        'passwordReset' => PasswordReset::class
     ];
 
     public static function resolve($key) {

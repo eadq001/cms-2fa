@@ -4,8 +4,8 @@ namespace Core\Middleware;
 
 class Guest{
         public function handle() {
-        if ( $_SESSION['user'] && $_SESSION['logged_in'] ?? false) {
-            redirect('/login');
+        if (($_SESSION['user'] ?? false) && ($_SESSION['logged_in'] ?? false)) {
+            redirect('/home');
         }
     }
 }
