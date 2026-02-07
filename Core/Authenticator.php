@@ -22,7 +22,7 @@ class Authenticator
     }
 
     public function login($user)
-    {
+    {   $_SESSION['logged_in'] = true;
         $_SESSION['user'] = ['email' => $user['email']];
         session_regenerate_id(true);
     }

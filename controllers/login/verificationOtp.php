@@ -26,7 +26,8 @@ if (!$user) {
     ";
 }
 
-$userAttempts;
+
+$userAttempts = null;
 
 if ($otp !== $user['otp']) {
     $db->query('UPDATE otp_verifications SET attempts = attempts - 1 WHERE email = :email', ['email' => $user['email']])->get();
@@ -44,7 +45,7 @@ if ($userAttempts === 0) {
 }
 
 // check the otp if correct
-$verifiedUser = $db->query('SELECT * FROM users WHERE email = :email and otp = :otp', ['email' => $user['email'], 'otp' => $otp])->get();
+$verifiedUser = $db->query('SELECT * FROM otp_verifications WHERE email = :email and otp = :otp', ['email' => $user['email'], 'otp' => $otp])->get();
 
 if ($verifiedUser) {
     redirect('/home');

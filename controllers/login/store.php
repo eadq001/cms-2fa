@@ -17,7 +17,6 @@ $token = md5((string) rand());
 $otp = sprintf('%06d', random_int(0, 999999));
 
 Session::flush();
-
 // checks if the user exist. if it exist, checks the password if it match to the users password
 $user = $authenticator->attemptLogin($email, $password);
 if (!$user) {
@@ -46,15 +45,6 @@ else {
     ";
 }
 
-// if (!$otpExpiry) {
-//     echo "
-//     <script>
-//     alert('otp is expired. please try again');
-//     window.location.href = '/login';
-//     </script>
-//     ";
-//     exit();
-// }
 
 $db->query('INSERT INTO otp_verifications (email, otp, token, user_id, time_expires, attempts) VALUES (:email, :otp, :token, :user_id, :time_expires, :attempts
 )',
