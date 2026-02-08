@@ -63,7 +63,7 @@ class Router
                 if ($route['middleware']) {
                     Middleware::resolve($route['middleware']);
                 }
-
+                
                 require BASE_PATH . $route['controller'];
                 return;
             }

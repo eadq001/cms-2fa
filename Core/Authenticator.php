@@ -16,9 +16,10 @@ class Authenticator
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $this->login(['email' => $email]);
+                return $user;
             }
+            return false;
         }
-        return $user;
     }
 
     public function login($user)
@@ -27,8 +28,13 @@ class Authenticator
 
         $_SESSION['logged_in'] = true;
         $_SESSION['user'] = ['email' => $user['email']];
-        dd('i wass called');
     }
+
+    public static function verification() {
+        Session::put('verification', true);
+    }
+
+
 
     public static function passwordReset($email)
     {

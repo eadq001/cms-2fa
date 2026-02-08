@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CMS-2FA</title>
         <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -31,9 +31,7 @@
                 </div>
             </h1>
             <p class="mx-auto mt-3 max-w-xl text-lg text-gray-500 dark:text-slate-400 sm:mt-5 md:mt-5">
-                example is the AI Content Generator
-                that helps you and your team break through creative blocks to create amazing, original content 10X
-                faster.
+                This is a templated sample project site of E.A. DEQUILLA
             </p>
             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center gap-2">
                 <div class="rounded-md shadow"><a

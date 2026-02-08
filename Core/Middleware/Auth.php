@@ -5,7 +5,7 @@ namespace Core\Middleware;
 
 class Auth {
     public function handle() {
-        if (! $_SESSION['user'] && !$_SESSION['logged_in'] ?? false) {
+        if ((! $_SESSION['user'] ?? false) || (!$_SESSION['logged_in'] ?? false)) {
             redirect('/login');
         }
     }

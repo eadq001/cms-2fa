@@ -19,11 +19,6 @@ $otp = sprintf('%06d', random_int(0, 999999));
 // checks if the user exist. if it exist, checks the password if it match to the users password
 $user = $authenticator->attemptLogin($email, $password);
 
-if (!$user) {
-    Session::flash('errors', ['user' => 'User does not exist']);
-    redirect('/login');
-}
-
 // validate the forms
 $validator->validateAll(email: $email, password: $password);
 if (!empty($validator->errors())) {
@@ -31,21 +26,35 @@ if (!empty($validator->errors())) {
     redirect('/login');
 }
 
+if (!$user) {
+    Session::flash('errors', ['user' => 'wrong email or password']);
+    redirect('/login');
+} else {
+    // removes all the session array and add 2 new key for verification middleware
+    Session::flush();
+    Session::put('user', $email);
+    Authenticator::verification();
+}
+
+
+// dd($_SESSION);
+
 $userOtp = $db->query('SELECT time_expires, email, token FROM otp_verifications where email = :email', ['email' => $email])->get();
 
-//checks if the otp is expired.
-if ($userOtp['time_expires'] <= date('Y-m-d H:i:s')) {
-    Session::destroy();
-    $db->query('DELETE FROM otp_verifications WHERE email = :email', ['email' => $userOtp['email']]);
+// checks if the otp is expired.
+if ($userOtp) {
+    if ($userOtp['time_expires'] <= date('Y-m-d H:i:s')) {
+        Session::destroy();
+        $db->query('DELETE FROM otp_verifications WHERE email = :email', ['email' => $userOtp['email']]);
+    } else {
+        echo "
+        <script>alert('You have a pending OTP.');
+        window.location.href = '/login/otp/verification?token={$userOtp['token']}';
+        </script>
+        ";
+    }
 }
-else {
-    echo "
-    <script>alert('You have a pending OTP.');
-    window.location.href = '/login/otp/verification?token={$userOtp['token']}';
-    </script>
-    ";
-}
-
+// dd($_SESSION);
 
 $db->query('INSERT INTO otp_verifications (email, otp, token, user_id, time_expires, attempts) VALUES (:email, :otp, :token, :user_id, :time_expires, :attempts
 )',

@@ -9,7 +9,7 @@ $router->post('/register', 'controllers/registration/store.php');
 
 $router->get('/login', 'controllers/login/create.php')->only('guest');
 $router->post('/login', 'controllers/login/store.php');
-$router->get('/login/otp/verification', 'controllers/login/verificationPage.php')->only('auth');
+$router->get('/login/otp/verification', 'controllers/login/verificationPage.php')->only('verification');
 $router->post('/login/otp/verification', 'controllers/login/verificationOTp.php');
 
 $router->get('/reset/password/form', 'controllers/reset/searchForm.php')->only('guest');
