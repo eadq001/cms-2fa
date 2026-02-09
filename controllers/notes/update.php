@@ -1,44 +1,32 @@
 <?php declare(strict_types=1);
 
-use Core\App;
 use Core\Database;
 use Core\Validator;
+use Core\Session;
 
-$db = App::resolve(Database::class);
+$id = $_POST['id'];
+$body = $_POST['body'];
 
-$note = $db->query('select * from notes where id = :id', [
-    'id' => $_POST['id']
-])->findOrFail();
+$db = new Database();
 
-$errors = [];
-
-$validator = new Validator();
-
-if (!$validator::string($_POST['body'], 1, 1000)) {
-    $errors['body'] = "a body of no more than 1000 characters is required";
+if (!Validator::string($body, 1)) {
+    Session::flash('errors', ['body' => 'a body should have at least 1 character']);
+    redirect("/notes/edit?id={$id}");
 }
 
-$currentUser = 1;
+
+$db->query('UPDATE notes INNER JOIN users on notes.user_id = users.id set body = :body WHERE notes.id = :id AND email = :email;',
+    [
+        'id' => $id,
+        'body' => $body,
+        'email' => $_SESSION['user']['email']
+    ]
+);
 
 
-if(count($errors)) {
-    return view('/notes/edit.view.php', [
-        'heading' => 'Update Note',
-        'errors' => $errors,
-        'note' => $note,
-        'pageTitle' => 'Edit Notes'
-
-    ]);
-}
-
-authorize($note['user_id'] === $currentUser);
-
-$db->query('update notes set body = :body where id = :id', [
-    'body' => $_POST['body'],
-    'id' => $_POST['id']
-]);
-
-header('location: /notes');
-die();
-
-?>
+echo "
+    <script>
+    alert('notes have been updated');
+    window.location.href = '/notes/all';
+    </script>
+";

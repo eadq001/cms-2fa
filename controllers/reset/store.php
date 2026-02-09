@@ -15,17 +15,28 @@ $checkToken = new Token();
 
 // checks the user token if expire or not
 $user = $checkToken->checkTokenExpiry($token);
-
+$userEmail = $user['email'];
+$verifiedUser = $db->query('SELECT password FROM users WHERE email = :email', ['email' => $userEmail])->get();
 // redirect if there is no user found
 if (!$user) {
+    echo "
+        <script>
+        alert('token is expired. try again');
+        </script>
+    ";
     redirect('/login');
 }
 
 $validator->validateAll(password: $password, passwordConfirm: $passwordConfirm);
-
 // redirect to the current page if there are password validation error
 if (!empty($validator->errors())) {
     Session::flash('errors', $validator->errors());
+    redirect("/reset/password/user/form?token={$token}");
+}
+
+//checks if the password is still the same as the old password
+if (password_verify($password, $verifiedUser['password'])) {
+    Session::flash('errors', ['password' => 'password should not be same as the old password']);
     redirect("/reset/password/user/form?token={$token}");
 }
 

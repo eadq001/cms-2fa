@@ -6,7 +6,7 @@
 <main>
   <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
     
-    <form method="POST" action="/note">
+    <form method="POST" action="/notes/edit">
       <input type="hidden" value="PATCH" name="_method">
       <input type="hidden" value=<?=$note['id']?> name="id">
       <div class="col-span-full">
@@ -17,15 +17,15 @@
         </div>
       </div>
 
-      <?php if (isset($errors['body'])): ?>
+      <?php if (isset(\Core\Session::get('errors')['body'])): ?>
         <p class="text-red-500 text-sm mt-4">
-          <?= $errors['body'] ?>
+          <?= \Core\Session::get('errors')['body'] ?>
         </p>
       <?php endif ?>
 
 
       <div class="mt-6 flex items-center justify-end gap-x-6" style="width: 900px;">
-        <a href="/notes"
+        <a href="/notes/all"
           class="rounded-md bg-gray-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cancel</a>
         <button type="submit"
           class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>

@@ -15,9 +15,9 @@
         </div>
       </div>
 
-      <?php if (isset($errors['body'])): ?>
+      <?php if (isset(\Core\Session::get('errors')['body'])): ?>
         <p class="text-red-500 text-sm mt-4">
-          <?= $errors['body'] ?>
+          <?= \Core\Session::get('errors')['body'] ?>
         </p>
       <?php endif ?>
 

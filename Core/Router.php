@@ -30,7 +30,7 @@ class Router
         return $this;
     }
 
-    public function update($uri, $controller)
+    public function patch($uri, $controller)
     {
         $this->addRoute('PATCH', $uri, $controller);
         return $this;

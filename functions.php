@@ -30,4 +30,12 @@ function oldUserIput($key1, $key2)
     return \Core\Session::get($key1)[$key2] ?? '';
 }
 
-?>
+
+function uriActive($uri) {
+    $default = explode('/', $_SERVER['REQUEST_URI']);
+    $default = '/' . $default[1];
+
+    $uri = explode('/', $uri);
+    $uri = '/' . $uri[1];
+    return $default === $uri;
+}

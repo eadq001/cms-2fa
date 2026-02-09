@@ -10,7 +10,7 @@ foreach ($lines as $line) {
 
     [$key, $value] = explode('=', $line, 2);
 
-    putenv(trim($key) . '=' . trim($value));
+    // putenv(trim($key) . '=' . trim($value));
     $_ENV[trim($key)] = trim($value);
 }
 

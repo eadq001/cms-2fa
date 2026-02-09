@@ -1,25 +1,17 @@
 <?php
 
-use Core\App;
 use Core\Database;
 
+$db = new Database();
+$id = $_POST['id'];
 
-$db = App::resolve(Database::class);
-$currentUser = 1;
 
+$db->query('DELETE notes FROM notes INNER join users on notes.user_id = users.id where email = :email and notes.id = :id;', ['email' => $_SESSION['user']['email'], 'id' => $id])->get();
 
-$note = $db->query('select * from notes where id = :id', [
-    'id' => $_POST['id']
-])->findOrFail();
+echo "
+    <script>
+    alert('note was deleted');
+    window.location.href = '/notes/all';
+    </script>
+";
 
-authorize($note['user_id'] === $currentUser);
-
-$user = $db->query("select * from users where id = {$note['user_id']}")->find();
-
-$db->query('delete from notes where id = :id', [
-    'id' => $_POST['id']
-]);
-
-header("location: /notes");
-die();
-?>

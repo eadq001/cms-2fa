@@ -1,20 +1,13 @@
 <?php declare(strict_types=1);
 
-// use Core\App;
-// use Core\Database;
+use Core\Database;
 
-// $db = App::resolve(Database::class);
-// $note = $db->query('select * from notes where id = :id',
-// [
-//     'id' => $_GET['id']
-//     ])->find();
+$db = new Database();
+$id = $_GET['id'];
+$note = $db->query('SELECT body, notes.id from notes INNER join users on notes.user_id = users.id where email = :email and notes.id = :id;', ['email' => $_SESSION['user']['email'], 'id' => $id])->get();
 
-// $currentUser = 1;
-
-    
-// authorize($note['user_id'] === $currentUser);
-
-view('notes/edit.view.php'
+view('notes/edit.view.php',
+['note' => $note]
 );
 
 ?>
