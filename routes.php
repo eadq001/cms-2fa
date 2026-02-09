@@ -18,12 +18,15 @@ $router->get('/reset/password/notification', 'controllers/reset/passwordResetNot
 $router->get('/reset/password/user/form', 'controllers/reset/passwordResetPage.php')->only('passwordReset');
 $router->post('/reset/password/user/update', 'controllers/reset/store.php');
 
+$router->delete('/logout', 'controllers/logout/logout.php');
+
 $router->get('/register/email/verification', 'controllers/registration/emailVerificationPage.php')->only('guest');
 $router->post('/register/email/verification', 'controllers/registration/verification.php');
 
 $router->get('/home', 'controllers/home.php')->only('auth');
 
-$router->delete('/logout', 'controllers/logout/logout.php');
+$router->get('/notes/all', 'controllers/notes/index.php')->only('auth');
+$router->get('/notes/create', 'controllers/notes/create.php')->only('auth');
+$router->get('/note', 'controllers/notes/show.php')->only('auth');
+$router->get('/notes/edit', 'controllers/notes/edit.php')->only('auth');
 
-
-?>
